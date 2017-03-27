@@ -1,3 +1,27 @@
 <h1>
   {{title}}
 </h1>
+
+<div>
+  <label>NAME</label>
+  <input type="text" [(ngModel)]="inputname">
+
+  <label>Init mod</label>
+  <input type="number" [(ngModel)]="inputInitMod">
+  <label>Init roll</label>
+  <input type="number" [(ngModel)]="inputInitRoll">
+  <label>Health</label>
+  <input type="number" [(ngModel)]="inputHealth">
+
+  <button type="submit" (click) = "sendRoundEntity()">Add entry</button>
+</div>
+
+
+<div *ngFor="let entity of roundEntities">
+
+  <p>name: {{entity.name}} <br>
+    initiative: {{entity.initiativeModifier + entity.initiativeRoll}}<br>
+    health: {{entity.health}}<br>
+  </p>
+  <br/>
+</div>
