@@ -1,6 +1,7 @@
 import {Observable} from "rxjs";
 import {RoundEntity} from "../domain/RoundEntity";
 import {MessageWrapper} from "../domain/MessageWrapper";
+import {ConditionWrapper} from "../domain/ConditionWrapper";
 /**
  * Created by Ravanys on 25/03/2017.
  */
@@ -8,8 +9,9 @@ import {MessageWrapper} from "../domain/MessageWrapper";
 
 export class ConnectionService{
 
-  private websocketAdres = "ws://192.168.0.248:8080/game";
-
+  private websocketAdres = "ws://192.168.1.61:8081/game";
+  // private websocketAdres = "ws://192.168.0.145:8081/game";
+  // private websocketAdres = "ws://192.168.0.248:8080/game";
 
   private ws:any;
 
@@ -61,8 +63,30 @@ export class ConnectionService{
 
   public addRoundEntity(roundEntity:RoundEntity){
     console.log(roundEntity);
-    this.sendMessage("REGISTER_ROUNDENTITY",JSON.stringify(roundEntity));
+    this.sendMessage("ADD_ROUND_ENTITY",JSON.stringify(roundEntity));
   }
+
+  public addCondition(conditionWrapper:ConditionWrapper){
+    console.log("adding condition to " + conditionWrapper.name);
+    this.sendMessage("ADD_CONDITION",JSON.stringify(conditionWrapper));
+  }
+
+  public sortRoundByInitiative(){
+    console.log("sort by init called");
+    this.sendMessage("SORT_ROUND","");
+  }
+
+  public nextTurn(){
+    console.log("next turn");
+    this.sendMessage("NEXT_TURN","");
+  }
+
+  public resetRound(){
+    console.log("resetting round");
+    this.sendMessage("RESET","");
+  }
+
+
 
   public sendMessage(type:string, message:string){
     if(this.ws != null && this.ws.readyState === 1){

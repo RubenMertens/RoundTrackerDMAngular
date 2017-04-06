@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {ConnectionService} from "../providers/ConnectionService";
+import { RoundEntityComponent } from './round-entity/round-entity.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RoundEntityComponent
   ],
   imports: [
     BrowserModule,

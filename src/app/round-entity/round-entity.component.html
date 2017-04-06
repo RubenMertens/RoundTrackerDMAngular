@@ -1,0 +1,19 @@
+  name: {{roundEntity.name}} <br>
+  initiative: {{roundEntity.initiativeModifier + roundEntity.initiativeRoll}}<br>
+  health: {{roundEntity.health}}<br>
+  <h3>Conditions</h3>
+  <div *ngFor="let con of roundEntity.conditions">
+    <p>
+      amount of turns : {{con.numberOfTurns}}
+      description : {{con.description}}
+    </p>
+  </div>
+<br/>
+
+<form>
+  <label >amount of turns for condition</label>
+  <input type="number" [(ngModel)]="numberOfTurns" name="numberOfTurns">
+  <label>description</label>
+  <textarea [(ngModel)]="description" name="description"></textarea>
+  <button type="submit" (click)="handleAddCondition()">ADD CONDITION</button>
+</form>

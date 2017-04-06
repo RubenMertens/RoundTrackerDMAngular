@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RoundEntity} from "../domain/RoundEntity";
 import {ConnectionService} from "../providers/ConnectionService";
+import {Round} from "../domain/Round";
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,12 @@ import {ConnectionService} from "../providers/ConnectionService";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  roundEntities:Array<RoundEntity> = []
+  round:Round = new Round(new Array(),0,null,new Array());
 
   inputHealth:number;
   inputname:string;
   inputInitRoll:number;
   inputInitMod:number;
-
-  title = 'app works!';
 
 
   constructor(public connectionService:ConnectionService) {
@@ -33,10 +32,22 @@ export class AppComponent {
     });*/
   }
 
+  sortByInit(){
+    this.connectionService.sortRoundByInitiative();
+  }
+
+  nextTurn(){
+    this.connectionService.nextTurn();
+  }
 
 
   sendRoundEntity(){
-    this.connectionService.addRoundEntity(new RoundEntity(this.inputname,this.inputInitRoll,this.inputInitMod,this.inputHealth));
+    this.connectionService.addRoundEntity(new RoundEntity(this.inputname,this.inputInitRoll,this.inputInitMod,this.inputHealth,new Array<any>()));
+  }
+
+
+  reset(){
+    this.connectionService.resetRound();
   }
 
   messageHandler(stringMessage){
@@ -46,9 +57,9 @@ export class AppComponent {
     let message = JSON.parse(wrapper.message);
     console.log(message);
     switch (wrapper.messageType){
-      case "ROUND_LIST":
+      case "ROUND_OUT":
         console.log("round list received");
-        this.roundEntities = message;
+        this.round = message;
         break;
     }
   }

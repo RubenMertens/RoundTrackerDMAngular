@@ -1,6 +1,13 @@
 <h1>
-  {{title}}
+  ROUND TRACKER
 </h1>
+
+<button (click)="nextTurn()">NEXT TURN</button>
+<button (click)="sortByInit()">SORT ROUND</button>
+<button (click)="reset()">RESET</button>
+
+<h2>ROUND COUNTER</h2>
+<h2>{{round.roundCounter}}</h2>
 
 <div>
   <label>NAME</label>
@@ -16,12 +23,11 @@
   <button type="submit" (click) = "sendRoundEntity()">Add entry</button>
 </div>
 
-
-<div *ngFor="let entity of roundEntities">
-
-  <p>name: {{entity.name}} <br>
-    initiative: {{entity.initiativeModifier + entity.initiativeRoll}}<br>
-    health: {{entity.health}}<br>
-  </p>
-  <br/>
+<div *ngIf="round != null">
+  <div  *ngFor="let entity of round.roundList">
+    <app-round-entity
+    [roundEntity] = "entity"
+    ></app-round-entity>
+  </div>
 </div>
+
