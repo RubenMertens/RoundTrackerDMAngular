@@ -23,6 +23,7 @@ export class AppComponent {
 
   ngOnInit():void{
     this.connectionService.openWebsocket().then(() => {
+      this.connectionService.registerToBackend();
       this.connectionService.setMessageHandler((message) => this.messageHandler(message));
     });
 

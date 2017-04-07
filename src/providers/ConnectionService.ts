@@ -9,9 +9,9 @@ import {ConditionWrapper} from "../domain/ConditionWrapper";
 
 export class ConnectionService{
 
-  private websocketAdres = "ws://192.168.1.61:8081/game";
+  // private websocketAdres = "ws://192.168.1.61:8081/game";
   // private websocketAdres = "ws://192.168.0.145:8081/game";
-  // private websocketAdres = "ws://192.168.0.248:8080/game";
+  private websocketAdres = "ws://192.168.0.248:8081/game";
 
   private ws:any;
 
@@ -29,11 +29,14 @@ export class ConnectionService{
     }
     return new Promise((resolve)=> {
       this.ws.onopen = function () {
-
         console.log("websocket opened");
         resolve(true);
       }
     })
+  }
+
+  public registerToBackend(){
+    this.sendMessage("REGISTER","");
   }
   /*  public openWebsocket() :Observable<any>{
     this.ws = new WebSocket(this.websocketAdres);
@@ -85,8 +88,6 @@ export class ConnectionService{
     console.log("resetting round");
     this.sendMessage("RESET","");
   }
-
-
 
   public sendMessage(type:string, message:string){
     if(this.ws != null && this.ws.readyState === 1){
